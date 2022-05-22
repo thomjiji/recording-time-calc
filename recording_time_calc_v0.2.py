@@ -49,12 +49,12 @@ cam_list = [fx6, fx3]
 #     sys.exit()
 #     print('Usage: recording_time_calc.py [camera] [resolution] [frame rate] [card capacity]')
 
-sys.argv = ['', 'fx3', 'uhd', 50, 80]
+# sys.argv = ['', 'fx3', 'uhd', 50, 80]
 
 cam = sys.argv[1]
 res = str(sys.argv[2])
 fr = sys.argv[3]
-capa = sys.argv[4]
+capa = int(sys.argv[4])
 
 br = get_bitrate(cam, res, fr)
 # print(get_bitrate(camera=cam, resolution=res, frame_rate=fr))
