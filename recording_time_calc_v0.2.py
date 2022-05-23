@@ -39,6 +39,27 @@ fx3 = {
 
 cam_list = [fx6, fx3]
 
+_1 = {
+    'resolution': 'uhd',
+    'codec': 'xavc-i',
+    'chroma subsampling': 422,
+    'bit depth': 10,
+    'frame rate': 50,
+    'bitrate': 500,
+}
+
+_2 = {
+    'resolution': 'uhd',
+    'codec': 'xavc-i',
+    'chroma subsampling': 422,
+    'bit depth': 10,
+    'frame rate': 25,
+    'bitrate': 250,
+}
+
+
+fx6 = [_1, _2]
+
 # # for command line usage
 # if len(sys.argv) < 4:
 #     sys.exit()
