@@ -1,7 +1,11 @@
 """
 This script is used to add bitrate, frame rate and other parameters
-to an external json file, which is a list inside it, with multiple
-dictionaries containing parameters.
+to an external json file as a simple database, which is a list inside
+it, with multiple dictionaries containing parameters.
+
+If that json file already exist, simply add given parameter dictionary
+to it. if that file does not exist, this script can create it automatically
+based on the information you provided such like filename.
 """
 import json
 
@@ -15,8 +19,8 @@ def generate_new_data_set(sensor_mode,
                           bitrate,
                           file_format):
     """
-    generating a new set of data, return a dictionary
-    for appending to the the camera list (for example fx6).
+    Generate a new set of parameters, return a dictionary
+    for appending to the external json file list.
     """
     new_data_set = {}
     new_data_set.setdefault('sensor mode', sensor_mode)
@@ -32,8 +36,11 @@ def generate_new_data_set(sensor_mode,
 
 def get_from_json(camera):
     """
-    Get json file from given file_path and return that file.
-    If given file_path doesn't exist, return None.
+    Get json file from given camera name (function can
+    automatically convert camera name to the corresponding
+    file name) and returns the content of that file.
+    If given name of the file doesn't exist, it will call
+    create_new_json() function to create it.
     """
     file_path = f"{camera}_database.json"
     while True:
@@ -51,7 +58,7 @@ def create_new_json(camera):
     """
     Create new json file using given camera name as prefix.
     Don't return anything, simply create new file. If that
-    file do exist, it will overwrite it with an empty list.
+    file does exist, it will overwrite it with an empty list.
     """
     new_json_name = f"{camera}_database.json"
     with open(new_json_name, 'w') as f:
@@ -60,20 +67,18 @@ def create_new_json(camera):
 
 def write_to_json(camera, new_dict):
     """
-    Using get_from_json() to get file (list), then
-    append given new_dict to that file (list).
-    Finally, overwriting that file with new list.
+    Using get_from_json() to get json (if it's not exist,
+    get_from_json() will call create_new_json() to create
+    one), assign it to variable cam_para.
+    Next, append given new_dict to cam_para.
+    Finally, overwriting that file with new list (cam_para).
     """
     file_path = f"{camera}_database.json"
-    cam = get_from_json(camera)
-    cam.append(new_dict)
+    cam_para = get_from_json(camera)
+    cam_para.append(new_dict)
     with open(file_path, 'w') as f:
-        json.dump(cam, f)
+        json.dump(cam_para, f)
 
-
-# filename = 'fx6_database.json'
 
 n_d = generate_new_data_set('ff', 'uhd', 'xavcsi', 422, 10, 25, 250, 'mp4')
 write_to_json('fx3', n_d)
-
-# create_new_json('fx3')
