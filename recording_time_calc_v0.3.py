@@ -1,6 +1,7 @@
 """
-This script is used to add the bitrate and frame rate data
-to an external json file (list) as a new dictionary in the list.
+This script is used to add bitrate, frame rate and other parameters
+to an external json file, which is a list inside it, with multiple
+dictionaries containing parameters.
 """
 import json
 
