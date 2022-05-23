@@ -2,7 +2,6 @@ import json
 import sys
 
 
-# Functions
 def recording_time(bitrate, capacity):
     """
     Calculate how long the camera can record based on a certain bit rate
@@ -58,7 +57,7 @@ def get_bitrate(camera,
     #     return bitrate
 
 
-# Data (legacy version)
+# Data (legacy)
 fx6 = {
     'uhd_xavc-i_422_10_50': 500,
     'uhd_xavc-i_422_10_25': 250,

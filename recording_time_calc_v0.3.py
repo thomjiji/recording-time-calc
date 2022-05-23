@@ -80,5 +80,5 @@ def write_to_json(camera, new_dict):
         json.dump(cam_para, f)
 
 
-n_d = generate_new_data_set('ff', 'uhd', 'xavcsi', 422, 10, 25, 250, 'mp4')
-write_to_json('fx3', n_d)
+new_cam_para = generate_new_data_set('ff', 'uhd', 'xavcs', 422, 10, 100, 280, 'mp4')
+write_to_json('fx3', new_cam_para)
