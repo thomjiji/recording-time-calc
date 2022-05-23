@@ -12,7 +12,6 @@ def recording_time(bitrate, capacity):
 
 def get_bitrate(camera, resolution, frame_rate):
     """Determining bitrate and return from camera data dict"""
-    # if camera in cam_list:  # Here's the problem
     if camera == 'fx6':
         index = f"{resolution}_xavc-i_422_10_{str(frame_rate)}"
         bitrate = fx6[index]
@@ -21,10 +20,6 @@ def get_bitrate(camera, resolution, frame_rate):
         index = f"{resolution}_xavc-s-i_422_10_{str(frame_rate)}"
         bitrate = fx3[index]
         return bitrate
-    # for camera in cam_list:
-    #     index = f"{resolution}_xavc-i_422_10_{str(frame_rate)}"
-    #     bitrate = camera[index]
-    #     return bitrate
 
 
 # Data
@@ -56,6 +51,6 @@ res = str(sys.argv[2])
 fr = sys.argv[3]
 capa = int(sys.argv[4])
 
-br = get_bitrate(cam, res, fr)
 # print(get_bitrate(camera=cam, resolution=res, frame_rate=fr))
+br = get_bitrate(cam, res, fr)
 recording_time(br, capa)
