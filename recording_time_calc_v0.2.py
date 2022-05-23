@@ -3,7 +3,8 @@ import sys
 
 # Functions
 def recording_time(bitrate, capacity):
-    """Calculate how long the camera can record based on a certain bit rate
+    """
+    Calculate how long the camera can record based on a certain bit rate
     and card capacity.
     """
     time = round(capacity * 1000 * 8 / bitrate / 60)
@@ -11,7 +12,7 @@ def recording_time(bitrate, capacity):
 
 
 def get_bitrate(camera, resolution, frame_rate):
-    """Determining bitrate and return from camera data dict"""
+    """Get bitrate from database and return"""
     if camera == 'fx6':
         index = f"{resolution}_xavc-i_422_10_{str(frame_rate)}"
         bitrate = fx6[index]
@@ -57,7 +58,6 @@ _2 = {
     'bitrate': 250,
 }
 
-
 fx6 = [_1, _2]
 
 # # for command line usage
@@ -72,6 +72,5 @@ res = str(sys.argv[2])
 fr = sys.argv[3]
 capa = int(sys.argv[4])
 
-# print(get_bitrate(camera=cam, resolution=res, frame_rate=fr))
 br = get_bitrate(cam, res, fr)
 recording_time(br, capa)
