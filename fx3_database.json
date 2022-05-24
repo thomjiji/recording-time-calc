@@ -1,1 +1,32 @@
-[{"sensor mode": "ff", "resolution": "uhd", "codec": "xavcsi", "chroma subsampling": 422, "bit depth": 10, "frame rate": 50, "bitrate": 500, "file format": "mp4"}, {"sensor mode": "ff", "resolution": "uhd", "codec": "xavcsi", "chroma subsampling": 422, "bit depth": 10, "frame rate": 25, "bitrate": 250, "file format": "mp4"}, {"sensor mode": "ff", "resolution": "uhd", "codec": "xavcs", "chroma subsampling": 422, "bit depth": 10, "frame rate": 100, "bitrate": 280, "file format": "mp4"}]
+[
+  {
+    "sensor mode": "ff",
+    "resolution": "uhd",
+    "codec": "xavcsi",
+    "chroma subsampling": 422,
+    "bit depth": 10,
+    "frame rate": 50,
+    "bitrate": 500,
+    "file format": "mp4"
+  },
+  {
+    "sensor mode": "ff",
+    "resolution": "uhd",
+    "codec": "xavcsi",
+    "chroma subsampling": 422,
+    "bit depth": 10,
+    "frame rate": 25,
+    "bitrate": 250,
+    "file format": "mp4"
+  },
+  {
+    "sensor mode": "ff",
+    "resolution": "uhd",
+    "codec": "xavcs",
+    "chroma subsampling": 422,
+    "bit depth": 10,
+    "frame rate": 100,
+    "bitrate": 280,
+    "file format": "mp4"
+  }
+]
