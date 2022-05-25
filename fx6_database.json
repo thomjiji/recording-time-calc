@@ -6,8 +6,8 @@
     "chroma subsampling": 422,
     "bit depth": 10,
     "frame rate": 50,
-    "bitrate": 500,
-    "file format": "mxf"
+    "file format": "mxf",
+    "bitrate": 500
   },
   {
     "sensor mode": "ff",
@@ -16,7 +16,17 @@
     "chroma subsampling": 422,
     "bit depth": 10,
     "frame rate": 25,
-    "bitrate": 250,
-    "file format": "mxf"
+    "file format": "mxf",
+    "bitrate": 250
+  },
+  {
+    "sensor mode": "ff",
+    "resolution": "hd",
+    "codec": "xavci",
+    "chroma subsampling": 422,
+    "bit depth": 10,
+    "frame rate": 50,
+    "file format": "mxf",
+    "bitrate": 222
   }
 ]

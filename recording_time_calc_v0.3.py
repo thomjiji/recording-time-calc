@@ -10,14 +10,16 @@ based on the information you provided such like filename.
 import json
 
 
-def generate_new_data_set(sensor_mode,
-                          resolution,
-                          codec,
-                          chroma_subsampling,
-                          bit_depth,
-                          frame_rate,
-                          bitrate,
-                          file_format):
+def generate_new_data_set(
+    sensor_mode,
+    resolution,
+    codec,
+    chroma_subsampling,
+    bit_depth,
+    frame_rate,
+    file_format,
+    bitrate
+):
     """
     Generate a new set of parameters, return a dictionary
     for appending to the external json file list.
@@ -29,8 +31,8 @@ def generate_new_data_set(sensor_mode,
     new_data_set.setdefault('chroma subsampling', chroma_subsampling)
     new_data_set.setdefault('bit depth', bit_depth)
     new_data_set.setdefault('frame rate', frame_rate)
-    new_data_set.setdefault('bitrate', bitrate)
     new_data_set.setdefault('file format', file_format)
+    new_data_set.setdefault('bitrate', bitrate)
     return new_data_set
 
 
@@ -80,5 +82,5 @@ def write_to_json(camera, new_dict):
         json.dump(cam_para, f)
 
 
-new_cam_para = generate_new_data_set('ff', 'uhd', 'xavcs', 422, 10, 100, 280, 'mp4')
-write_to_json('fx3', new_cam_para)
+new_cam_para = generate_new_data_set('ff', 'hd', 'xavci', 422, 10, 50, 'mxf', 222)
+write_to_json('fx6', new_cam_para)
