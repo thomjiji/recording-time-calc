@@ -22,7 +22,7 @@ def get_bitrate(
     file_format,
 ):
     """Get bitrate from database and return."""
-    filename = f"{camera}_database.json"
+    filename = f"data/{camera}_database.json"
     with open(filename, 'r') as f:
         cam_para = json.load(f)
         for i in cam_para:

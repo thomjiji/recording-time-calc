@@ -45,7 +45,7 @@ def get_from_json(camera):
     If given name of the file doesn't exist, it will call
     create_new_json() function to create it.
     """
-    file_path = f"{camera}_database.json"
+    file_path = f"data/{camera}_database.json"
     while True:
         try:
             with open(file_path, 'r') as f:
@@ -63,7 +63,7 @@ def create_new_json(camera):
     Don't return anything, simply create new file. If that
     file does exist, it will overwrite it with an empty list.
     """
-    new_json_name = f"{camera}_database.json"
+    new_json_name = f"data/{camera}_database.json"
     with open(new_json_name, 'w') as f:
         json.dump([], f)
 
@@ -78,12 +78,12 @@ def write_to_json(camera, new_dict):
 
     Finally, overwriting that file with new list (cam_para).
     """
-    file_path = f"{camera}_database.json"
+    file_path = f"data/{camera}_database.json"
     cam_para = get_from_json(camera)
     cam_para.append(new_dict)
     with open(file_path, 'w') as f:
         json.dump(cam_para, f)
 
 
-new_cam_para = generate_new_data_set('ff', 'hd', 'xavci', 422, 10, 50, 'mxf', 222)
+new_cam_para = generate_new_data_set('ff', 'hd', 'xavci', 422, 10, 25, 'mxf', 112)
 write_to_json('fx6', new_cam_para)

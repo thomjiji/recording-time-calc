@@ -28,5 +28,15 @@
     "frame rate": 50,
     "file format": "mxf",
     "bitrate": 222
+  },
+  {
+    "sensor mode": "ff",
+    "resolution": "hd",
+    "codec": "xavci",
+    "chroma subsampling": 422,
+    "bit depth": 10,
+    "frame rate": 25,
+    "file format": "mxf",
+    "bitrate": 112
   }
 ]
