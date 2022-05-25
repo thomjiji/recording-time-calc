@@ -1,11 +1,7 @@
-x = [{"sensor mode": "ff", "resolution": "dci4k", "codec": "xavci", "chroma subsampling": 422, "bit depth": 10,
-      "frame rate": 50, "bitrate": 500, "file format": "mxf"},
-     {"sensor mode": "ff", "resolution": "uhd", "codec": "xavci", "chroma subsampling": 422, "bit depth": 10,
-      "frame rate": 25, "bitrate": 250, "file format": "mxf"}]
+import json
 
-for i in x:
-    for k, v in i.items():
-        print(k, v, sep=': ')
+with open('fx6_database.json') as f:
+    cam_para = json.load(f)
 
-# for i in x:
-#     print(type(i))
+for i in cam_para:
+    print(i)

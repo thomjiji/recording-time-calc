@@ -44,6 +44,7 @@ def get_bitrate(
                     continue
                 else:
                     break
+        return None
 
 
 # # for command line usage
@@ -53,17 +54,20 @@ def get_bitrate(
 #     [camera] [sensor mode] [resolution] [codec] [chroma subsampling] [bit depth] [frame rate] [file format] [card
 #     capacity]')
 
-sys.argv = ['', 'fx6', 'ff', 'dci4k', 'xavci', 422, 10, 50, 'mxf', 80]
+sys.argv = ['', 'fx6', 'ff', 'uhd', 'xavci', 422, 10, 25, 'mxf', 160]
 
-camera = sys.argv[1]
-sensor_mode = sys.argv[2]
-resolution = sys.argv[3]
-codec = sys.argv[4]
-chroma_subsampling = sys.argv[5]
-bit_depth = sys.argv[6]
-frame_rate = sys.argv[7]
-file_format = sys.argv[8]
-card_capacity = sys.argv[9]
+cam = sys.argv[1]
+senmo = sys.argv[2]
+res = sys.argv[3]
+cdc = sys.argv[4]
+chrsub = sys.argv[5]
+bd = sys.argv[6]
+fr = sys.argv[7]
+ff = sys.argv[8]
+capa = sys.argv[9]
 
-br = get_bitrate(camera, sensor_mode, resolution, codec, chroma_subsampling, bit_depth, frame_rate, file_format)
-recording_time(br, card_capacity)
+br = get_bitrate(cam, senmo, res, cdc, chrsub, bd, fr, ff)
+if not br:
+    print(f"Please update your {cam}'s database.")
+else:
+    recording_time(br, capa)

@@ -4,7 +4,7 @@ to an external json file as a simple database, which is a list inside
 it, with multiple dictionaries containing parameters.
 
 If that json file already exist, simply add given parameter dictionary
-to it. if that file does not exist, this script can create it automatically
+to it. If that file does not exist, this script can create it automatically
 based on the information you provided such like filename.
 """
 import json
@@ -41,6 +41,7 @@ def get_from_json(camera):
     Get json file from given camera name (function can
     automatically convert camera name to the corresponding
     file name) and returns the content of that file.
+
     If given name of the file doesn't exist, it will call
     create_new_json() function to create it.
     """
@@ -72,7 +73,9 @@ def write_to_json(camera, new_dict):
     Using get_from_json() to get json (if it's not exist,
     get_from_json() will call create_new_json() to create
     one), assign it to variable cam_para.
+
     Next, append given new_dict to cam_para.
+
     Finally, overwriting that file with new list (cam_para).
     """
     file_path = f"{camera}_database.json"
