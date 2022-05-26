@@ -47,27 +47,40 @@ def get_bitrate(
         return None
 
 
-# # for command line usage
+"""For command line usage"""
 # if len(sys.argv) < 4:
 #     sys.exit()
 #     print('Usage: recording_time_calc.py
 #     [camera] [sensor mode] [resolution] [codec] [chroma subsampling] [bit depth] [frame rate] [file format] [card
 #     capacity]')
 
-sys.argv = ['', 'fx6', 'ff', 'uhd', 'xavci', 422, 10, 25, 'mxf', 160]
+"""Test"""
+"""Solution 1: entering parameter in one line"""
+# sys.argv = ['', 'fx6', 'ff', 'uhd', 'xavci', 422, 10, 25, 'mxf', 160]
+#
+# cam = sys.argv[1]
+# senmo = sys.argv[2]
+# res = sys.argv[3]
+# cdc = sys.argv[4]
+# chrsub = sys.argv[5]
+# bd = sys.argv[6]
+# fr = sys.argv[7]
+# ff = sys.argv[8]
+# capa = sys.argv[9]
 
-cam = sys.argv[1]
-senmo = sys.argv[2]
-res = sys.argv[3]
-cdc = sys.argv[4]
-chrsub = sys.argv[5]
-bd = sys.argv[6]
-fr = sys.argv[7]
-ff = sys.argv[8]
-capa = sys.argv[9]
+"""Solution 2: entering parameter one by one."""
+cam = input("camera: ")
+senmo = input("sensor mode: ")
+res = input("resolution: ")
+cdc = input("codec: ")
+chrsub = int(input("chroma subsampling: "))
+bd = int(input("bit depth: "))
+fr = int(input("frame rate: "))
+ff = input("file format: ")
+capa = int(input("card capacity: "))
 
 br = get_bitrate(cam, senmo, res, cdc, chrsub, bd, fr, ff)
 if not br:
-    print(f"Please update your {cam}'s database.")
+    print(f"This data set is not available, please update your {cam} database.")
 else:
     recording_time(br, capa)
