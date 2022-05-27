@@ -5,35 +5,37 @@ import os
 from pathlib import Path
 
 
-"""Data crawling using pandas. Get a list containing multiple pandas DataFrame."""
-DataFrame_list = pd.read_html(r'https://brains.florianmilz.com/ucdb/sony/fx3')
+def data_crawl(cam, url):
+    """
+    Using pandas to crawling data from https://brains.florianmilz.com/ucdb/,
+    create multiple json/csv file, then merge them into one, deleted them in the end.
+    """
 
-"""Convert multiple DataFrames to json/csv."""
-file_index = 1
-for data_frame in DataFrame_list:
-    data_frame.to_json(f'data/json/fx3_database_{file_index}.json')
-    file_index += 1
+    # Firstly, get a list containing multiple pandas DataFrame.
+    DataFrame_list = pd.read_html(url)
 
+    # Convert multiple DataFrames to multiple json/csv files using pandas to_json method.
+    index_to_json = 1
+    for data_frame in DataFrame_list:
+        data_frame.to_json(f'data/json/{cam}_database_{index_to_json}.json')
+        index_to_json += 1
 
-def json_merge(cam):
-    """Merge multiple json files together, then delete those individual json files."""
-
-    # Load individual json files into one list.
+    # Load individual JSON files from 'data/json' into a single Python list.
     cam_database = []
     try:
-        index = 1
+        index_retrieve = 1
         while True:
-            with open(f'data/json/{cam}_database_{index}.json', 'r') as f:
+            with open(f'data/json/{cam}_database_{index_retrieve}.json', 'r') as f:
                 separate_json = json.load(f)
                 cam_database.append(separate_json)
-                index += 1
+                index_retrieve += 1
     except FileNotFoundError:
-        print(f"{cam} separate JSON file merge successful.")
+        print(f"{cam} separate JSON file merge successful. (1/3)")
 
-    # Write that list into a master json file.
+    # Write that Python list into a master json file.
     with open(f'data/json/{cam}_database.json', 'w') as f:
         json.dump(cam_database, f)
-        print(f"{cam} master JSON file created successfully.")
+        print(f"{cam} master JSON file created successfully. (2/3)")
 
     # Remove those individual json files.
     try:
@@ -42,10 +44,10 @@ def json_merge(cam):
             os.remove(f'data/json/{cam}_database_{index_remove}.json')
             index_remove += 1
     except FileNotFoundError:
-        print(f"{cam} separate JSON file deleted.")
+        print(f"{cam} separate JSON file deleted. (3/3)")
 
 
-json_merge('fx3')
+data_crawl('gh5m2', 'https://brains.florianmilz.com/ucdb/panasonic/gh5ii')
 
 # """Get csv file contents."""
 # filename = 'data/csv/fx3_table_1.csv'
