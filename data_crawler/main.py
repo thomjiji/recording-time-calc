@@ -5,7 +5,7 @@ import os
 from pathlib import Path
 
 
-def data_crawl(cam, url):
+def data_crawl(cam, filetype, url):
     """
     Using pandas to crawling data from https://brains.florianmilz.com/ucdb/,
     create multiple json/csv file, then merge them into one, deleted them in the end.
@@ -15,22 +15,36 @@ def data_crawl(cam, url):
     DataFrame_list = pd.read_html(url)
 
     # Convert multiple DataFrames to multiple json/csv files using pandas to_json method.
-    index_to_json = 1
-    for data_frame in DataFrame_list:
-        data_frame.to_json(f'data/json/{cam}_database_{index_to_json}.json')
-        index_to_json += 1
+    index_to_json_csv = 1
+    if filetype == "json":
+        for data_frame in DataFrame_list:
+            data_frame.to_json(f'data/json/{cam}_database_{index_to_json_csv}.json')
+            index_to_json_csv += 1
+    elif filetype == "json":
+        for data_frame in DataFrame_list:
+            data_frame.to_json(f'data/csv/{cam}_database_{index_to_json_csv}.csv')
+            index_to_json_csv += 1
+    else:
+        return None
 
     # Load individual JSON files from 'data/json' into a single Python list.
     cam_database = []
-    try:
-        index_retrieve = 1
-        while True:
-            with open(f'data/json/{cam}_database_{index_retrieve}.json', 'r') as f:
-                separate_json = json.load(f)
-                cam_database.append(separate_json)
-                index_retrieve += 1
-    except FileNotFoundError:
-        print(f"{cam} separate JSON file merge successful. (1/3)")
+    if filetype == "json":
+        try:
+            index_retrieve = 1
+            while True:
+                with open(f'data/json/{cam}_database_{index_retrieve}.json', 'r') as f:
+                    separate_json = json.load(f)
+                    cam_database.append(separate_json)
+                    index_retrieve += 1
+        except FileNotFoundError:
+            print(f"{cam} separate JSON file merge successful. (1/3)")
+    elif filetype == "csv":
+        try:
+            index_retrieve = 1
+            while True:
+                with open(f'data/csv/{cam}_database_{index_retrieve}.csv', 'r') as f:
+                    reader = csv.reader(f, delimiter=',')
 
     # Write that Python list into a master json file.
     with open(f'data/json/{cam}_database.json', 'w') as f:
