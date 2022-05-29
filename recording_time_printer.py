@@ -53,9 +53,12 @@ def print_selection(cam):
     csv_database = pd.read_csv(f'data_crawler/data/csv/{cam}_database.csv')
     column_index = 1
 
-    for column in range(len(csv_database.columns)):
+    for count, column in enumerate(range(len(csv_database.columns))):
         options = set(csv_database[csv_database.columns[column_index]])
         if len(options) == 1:
+            column_index += 1
+            for i in options:
+                print(f"Automatically selected {i}.")
             continue
 
         # Let user select the first option. Use this selection create a filterer.
@@ -64,12 +67,15 @@ def print_selection(cam):
         for index, opt in enumerate(sorted(options)):
             print(f"{index + 1}. {opt}")
             available_options[f"{index + 1}"] = opt
+
         user_selection = input(">>> ")
         filterer = available_options[user_selection]
         csv_database = csv_database[csv_database[f"{csv_database.columns[column_index]}"] == filterer]
-        column_index += 1
 
-        # if len(options) == 1:
+        if len(csv_database.index) == 1:
+            print(f"datarate is {csv_database['datarate']}.")
+
+        column_index += 1
 
 
 print_selection('fx6')
