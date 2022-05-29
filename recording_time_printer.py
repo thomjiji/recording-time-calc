@@ -85,13 +85,13 @@ def print_selection(cam):
         csv_database = csv_database[csv_database[f"{csv_database.columns[column_index]}"] == filterer]
 
         if len(csv_database.index) == 1:
-            print(f"datarate is {csv_database['datarate']}.")
+            print(f"datarate is {csv_database['datarate'].values}.")
             break
 
         column_index += 1
 
 
-print_selection('fx3')
+print_selection('gh5m2')
 
 """pandas"""
 """1"""
