@@ -1,6 +1,8 @@
 import json
 import sys
 
+import pandas as pd
+
 
 def recording_time(bitrate, capacity):
     """
@@ -47,40 +49,38 @@ def get_bitrate(
         return None
 
 
-"""For command line usage"""
-# if len(sys.argv) < 4:
-#     sys.exit()
-#     print('Usage: recording_time_calc.py
-#     [camera] [sensor mode] [resolution] [codec] [chroma subsampling] [bit depth] [frame rate] [file format] [card
-#     capacity]')
+"""pandas"""
+"""1"""
+# Use read_csv function to create a initial DataFrame including all parameter.
+csv_database = pd.read_csv('data_crawler/data/csv/gh5m2_database.csv')
 
-"""Test"""
-"""Solution 1: entering parameter in one line"""
-# sys.argv = ['', 'fx6', 'ff', 'uhd', 'xavci', 422, 10, 25, 'mxf', 160]
-#
-# cam = sys.argv[1]
-# senmo = sys.argv[2]
-# res = sys.argv[3]
-# cdc = sys.argv[4]
-# chrsub = sys.argv[5]
-# bd = sys.argv[6]
-# fr = sys.argv[7]
-# ff = sys.argv[8]
-# capa = sys.argv[9]
+# Create a Python set to display available options in current column.
+resolution_options = set(csv_database['resolution'])
 
-"""Solution 2: entering parameter one by one."""
-cam = input("camera: ")
-senmo = input("sensor mode: ")
-res = input("resolution: ")
-cdc = input("codec: ")
-chrsub = int(input("chroma subsampling: "))
-bd = int(input("bit depth: "))
-fr = int(input("frame rate: "))
-ff = input("file format: ")
-capa = int(input("card capacity: "))
+# Let user to select first parameter: resolution.
+print(">>> Select resolution below: ")
+available_options = {}
+for index, res in enumerate(sorted(resolution_options)):
+    print(f"{index + 1}. {res}")
+    available_options[f'{index + 1}'] = res
+user_selection = input(">>> ")
+filterer = available_options[user_selection]
 
-br = get_bitrate(cam, senmo, res, cdc, chrsub, bd, fr, ff)
-if not br:
-    print(f"This data set is not available, please update your {cam} database.")
-else:
-    recording_time(br, capa)
+"""2"""
+# Use user entered selection to filter out a part of DataFrame row, yielding a new DataFrame.
+after_first_selection = csv_database[csv_database['resolution'] == filterer]
+
+# Create a Python set to display available options in current column.
+codec_options = set(after_first_selection['codec'])
+
+print(">>> Select codec below: ")
+available_options = {}
+for index, cdc in enumerate(sorted(codec_options)):
+    print(f"{index + 1}. {cdc}")
+    available_options[f'{index + 1}'] = cdc
+user_selection = input(">>> ")
+filterer = available_options[user_selection]
+
+"""3"""
+after_second_selection = after_first_selection[after_first_selection['codec'] == filterer]
+print(after_second_selection)
