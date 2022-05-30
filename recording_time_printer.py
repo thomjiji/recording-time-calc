@@ -57,11 +57,16 @@ def print_selection(cam):
         """
         Inside the set parentheses, The output of the expression in the
         outer square brackets is the column's name. The output of the
-        csv_database DataFrame `csv_database['column's name'] is the whole
+        csv_database DataFrame `csv_database['column's name']` is the whole
         column's value. We use set() function to turn the column's value into
         a non-repeating set data type.
         """
         options = set(csv_database[csv_database.columns[column_index]])
+        if 'nan' in options:
+            print(f"{csv_database.columns[column_index]} parameter is not available.")
+            column_index += 1
+            continue
+
         if len(options) == 1:
             column_index += 1
             for i in options:
@@ -91,7 +96,7 @@ def print_selection(cam):
         column_index += 1
 
 
-print_selection('gh5m2')
+print_selection('fx6')
 
 """pandas"""
 """1"""
