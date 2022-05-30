@@ -61,17 +61,19 @@ def print_selection(cam):
         column's value. We use set() function to turn the column's value into
         a non-repeating set data type.
         """
-        options = set(csv_database[csv_database.columns[column_index]])
-        if 'nan' in options:
-            print(f"{csv_database.columns[column_index]} parameter is not available.")
-            column_index += 1
-            continue
-
+        options = set(csv_database[csv_database.columns[column_index]].dropna())
         if len(options) == 1:
             column_index += 1
             for i in options:
                 print(f"Automatically selected {i}.")
             continue
+        elif len(options) == 0:
+            print(f"{csv_database.columns[column_index]} is not available.")
+            column_index += 1
+            continue
+        elif csv_database['datarate'].isnull():
+            print("datarate is not available.")
+            break
 
         # Let user select the first option. Use this selection create a filterer.
         """这里我们 print 出可选项，把用户的记录选择到 available_options 供下面的筛选使用。"""
@@ -97,41 +99,3 @@ def print_selection(cam):
 
 
 print_selection('fx6')
-
-"""pandas"""
-"""1"""
-# Use read_csv function to create a initial DataFrame including all parameter.
-# csv_database = pd.read_csv('data_crawler/data/csv/gh5m2_database.csv')
-
-# Create a Python set to display available options in current column.
-# x = csv_database.columns[1]
-# resolution_options = set(csv_database[csv_database.columns[1]])
-# print(resolution_options)
-
-# # Let user to select first parameter: resolution.
-# print(">>> Select resolution below: ")
-# available_options = {}
-# for index, res in enumerate(sorted(resolution_options)):
-#     print(f"{index + 1}. {res}")
-#     available_options[f'{index + 1}'] = res
-# user_selection = input(">>> ")
-# filterer = available_options[user_selection]
-#
-# """2"""
-# # Use user entered selection to filter out a part of DataFrame row, yielding a new DataFrame.
-# after_first_selection = csv_database[csv_database['resolution'] == filterer]
-#
-# # Create a Python set to display available options in current column.
-# codec_options = set(after_first_selection['codec'])
-#
-# print(">>> Select codec below: ")
-# available_options = {}
-# for index, cdc in enumerate(sorted(codec_options)):
-#     print(f"{index + 1}. {cdc}")
-#     available_options[f'{index + 1}'] = cdc
-# user_selection = input(">>> ")
-# filterer = available_options[user_selection]
-#
-# """3"""
-# after_second_selection = after_first_selection[after_first_selection['codec'] == filterer]
-# print(after_second_selection)
