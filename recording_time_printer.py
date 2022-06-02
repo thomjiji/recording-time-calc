@@ -51,32 +51,26 @@ def get_bitrate(
 
 def print_selection(cam):
     csv_database = pd.read_csv(f'data_crawler/data/csv/{cam}_database.csv')
-    column_index = 1
 
-    for count, column in enumerate(range(len(csv_database.columns))):
-        """
-        Inside the set parentheses, The output of the expression in the
-        outer square brackets is the column's name. The output of the
-        csv_database DataFrame `csv_database['column's name']` is the whole
-        column's value. We use set() function to turn the column's value into
-        a non-repeating set data type.
-        """
-        options = set(csv_database[csv_database.columns[column_index]].dropna())
+    if 'sensor mode' not in csv_database.columns:
+        csv_database = pd.read_csv(f'data_crawler/data/csv/{cam}_database.csv', usecols=[1, 2, 3, 4, 6, 7, 9, 8])
+    else:
+        csv_database = pd.read_csv(f'data_crawler/data/csv/{cam}_database.csv', usecols=[1, 2, 3, 4, 5, 6, 7, 10, 8])
+
+    csv_database.fillna(0, inplace=True)
+
+    column_index = 0
+
+    for count, column in enumerate(csv_database.columns):
+
+        options = set(csv_database[csv_database.columns[column_index]])
+
         if len(options) == 1:
             column_index += 1
             for i in options:
                 print(f"Automatically selected {i}.")
             continue
-        elif len(options) == 0:
-            print(f"{csv_database.columns[column_index]} is not available.")
-            column_index += 1
-            continue
-        elif csv_database['datarate'].isnull():
-            print("datarate is not available.")
-            break
 
-        # Let user select the first option. Use this selection create a filterer.
-        """这里我们 print 出可选项，把用户的记录选择到 available_options 供下面的筛选使用。"""
         print(f">>> Select {csv_database.columns[column_index]} below: ")
         available_options = {}
         for index, option in enumerate(sorted(options)):
@@ -84,12 +78,12 @@ def print_selection(cam):
             available_options[f"{index + 1}"] = option
         user_selection = input(">>> ")
 
-        """基于用户的输入（数字），找到该数字（key）在 available_options 里对应的 values，assign 到
-        filterer 这个 variable 上。"""
         filterer = available_options[user_selection]
-        """使用 filterer 作为筛选，过滤掉用户选项之外的 row，由此创建新的 csv_database DataFrame 
-        供下一个 loop 使用。"""
         csv_database = csv_database[csv_database[f"{csv_database.columns[column_index]}"] == filterer]
+
+        if csv_database['datarate'].eq(0).all():
+            print(f"datarate is not available in {available_options[user_selection]} format.")
+            break
 
         if len(csv_database.index) == 1:
             print(f"datarate is {csv_database['datarate'].values}.")
@@ -98,4 +92,4 @@ def print_selection(cam):
         column_index += 1
 
 
-print_selection('fx6')
+print_selection('gh5s')

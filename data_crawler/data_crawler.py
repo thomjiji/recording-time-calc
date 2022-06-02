@@ -21,4 +21,4 @@ def generate_database(cam, url, type):
             pd.concat(df_list, axis=0, ignore_index=True).to_csv(f)
 
 
-generate_database('ronin4d6k', 'https://brains.florianmilz.com/ucdb/dji/ronin4d6k', 'csv')
+generate_database('gh5s', 'https://brains.florianmilz.com/ucdb/panasonic/gh5s', 'csv')
